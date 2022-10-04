@@ -1,0 +1,25 @@
+version: 2.1
+orbs:
+  codecov: codecov/codecov@3.2.2
+
+jobs:
+  build:
+    docker:
+      - image: ikostrikov/jaxrl2:latest
+    steps:
+      - checkout
+      - run:
+          name: Install dependencies
+          command: pip install --upgrade pip; pip install -e .[test]
+      - run:
+          name: Run tests and collect coverage
+          command: |
+            MUJOCO_GL=osmesa PYOPENGL_PLATFORM=osmesa pytest tests --cov=jaxrl2 --cov=examples  --cov-report=xml
+      - codecov/upload:
+          file: coverage.xml
+
+workflow:
+  version: 2.1
+  build-test:
+    jobs:
+      - build

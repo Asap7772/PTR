@@ -22,7 +22,6 @@ def offline_training_loop(variant, agent, eval_env, replay_buffer, eval_replay_b
         eval_replay_buffer = replay_buffer
     
     if variant.offline_finetuning_start != -1:
-        # print ('Buffer is not doing finetuning at the beginning')
         changed_buffer_to_finetuning = False
         if isinstance(replay_buffer, MixingReplayBuffer) or isinstance(replay_buffer, MixingReplayBufferParallel):
             replay_buffer.set_mixing_ratio(1.0) 
@@ -42,7 +41,6 @@ def offline_training_loop(variant, agent, eval_env, replay_buffer, eval_replay_b
 
         if variant.offline_finetuning_start != -1:
             # Update the buffer when finetuning offline
-            # print ('Buffer is not doing finetuning at the beginning')
             if not changed_buffer_to_finetuning and i >= variant.offline_finetuning_start and (
                     isinstance(replay_buffer, MixingReplayBuffer) or isinstance(replay_buffer, MixingReplayBufferParallel)):
                 replay_buffer.set_mixing_ratio(variant.target_mixing_ratio)
@@ -55,7 +53,6 @@ def offline_training_loop(variant, agent, eval_env, replay_buffer, eval_replay_b
                 agent.unreplicate()
             wandb_logger.log({'t_get_data': tget_data}, step=i)
             wandb_logger.log({'t_update': tupdate}, step=i)
-            # if 'pixels' in update_info and i % (variant.eval_interval*10) == 0:
             if 'pixels' in update_info and i % variant.eval_interval == 0:
                 if variant.algorithm == 'reward_classifier':
                     image = visualize_image_rewards(update_info.pop('pixels'), batch['rewards'], update_info.pop('rewards_mean'), batch['observations'], task_id_mapping=task_id_mapping)

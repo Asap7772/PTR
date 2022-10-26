@@ -1,5 +1,5 @@
 # PTR Implementation
-This repository contains the implementation of the PTR algorithm described in the paper: [Pre-Training for Robots: Leveraging Diverse Multitask Data via Offline Reinforcement Learning](https://bit.ly/PTR_Paper).
+This repository contains the implementation of the PTR algorithm described in the paper: [Pre-Training for Robots: Leveraging Diverse Multitask Data via Offline Reinforcement Learning](https://arxiv.org/abs/2210.05178).
 
 
 ## Code Structure
@@ -66,4 +66,7 @@ conda activate jax_tpu
 The `jax_tpu.yml` file is located in the root directory of this repository.
 
 ## Public Datasets
-You can find the datasets that were used for this paper [here](https://bit.ly/PTR_ICLR).
+You can find the datasets that were used for this paper [here](https://sites.google.com/view/ptr-robotlearning).
+
+## Acknowledgements
+Our repostiory is based off of the [JAX RL2](https://github.com/ikostrikov/jaxrl2) repository. We thank the authors for making their code public. We utilized on a earlier private version of the repository for our experiments. We have made the necessary changes to make it compatible with the latest version of the repository.
